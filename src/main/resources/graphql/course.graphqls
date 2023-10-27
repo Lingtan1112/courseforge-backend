@@ -1,0 +1,46 @@
+
+schema {
+    query:Query
+}
+
+type Query {
+    fetchVideoInfo(videoId:String):YoutubeResponseDTO
+    fetchCourseList:[Course]
+}
+
+type YoutubeResponseDTO{
+    items:[Video]
+}
+
+type Video{
+    snippet:VideoSnippet
+}
+
+type VideoSnippet{
+    channelId:String
+    channelTitle:String
+    description:String
+    title:String
+    thumbnails:ThumbnailDetails
+}
+
+type ThumbnailDetails{
+    default:Thumbnail
+    high:Thumbnail
+    medium:Thumbnail
+    standard:Thumbnail
+}
+
+type Thumbnail{
+    height:Int
+    url:String
+    width:Int
+}
+
+type Course{
+    courseId:Int
+    courseTitle:String
+    courseDescription:String
+    courseImage:String
+    isCourseActive:String
+}
