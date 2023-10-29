@@ -9,20 +9,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.courseforge.bussiness.CourseBusiness;
 import com.courseforge.bussiness.YoutubeApiBussiness;
+import com.courseforge.dto.CourseDTO;
 import com.courseforge.dto.YoutubeResponseDTO;
 import com.courseforge.model.Course;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 
 import graphql.GraphQL;
 import graphql.schema.DataFetcher;
-import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
+import jakarta.annotation.PostConstruct;
 
 
 @Configuration
@@ -36,7 +43,7 @@ public class BeanConfiguration {
 
     @Autowired
     CourseBusiness courseBusiness;
-    
+
     @Bean
     public GraphQL getGraphQL() throws IOException{
         SchemaParser schemaParser = new SchemaParser(); 
@@ -54,7 +61,7 @@ public class BeanConfiguration {
             return youtubeApiBussiness.getVideoInfo(environment.getArgument("videoId"));
         };
 
-        DataFetcher<List<Course>> dataFetcher2 =  (environment) -> {
+        DataFetcher<List<CourseDTO>> dataFetcher2 =  (environment) -> {
             return courseBusiness.fetchCourseList();
         };
 
@@ -65,5 +72,7 @@ public class BeanConfiguration {
 
         return runtimeWiring;
     }
+
+    
 
 }

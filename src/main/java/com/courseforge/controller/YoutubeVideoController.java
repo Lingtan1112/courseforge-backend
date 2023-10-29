@@ -1,11 +1,13 @@
 package com.courseforge.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,9 +32,13 @@ public class YoutubeVideoController {
     }
 
     @PostMapping("/fetchall")
-    public ResponseEntity<List<YoutubeVideo>> fetchAllVideos(@RequestParam("courseId") Long courseId){
+    public ResponseEntity<List<YoutubeVideo>> fetchAllVideos(@RequestParam("courseId") String courseId){
         List<YoutubeVideo> youtubeVideoList = youtubeVideoBussiness.fetchVideosByCourseId(courseId);
         return new ResponseEntity<>(youtubeVideoList, HttpStatus.OK);
     }
 
+    @PostMapping("/delete/{videoId}")
+    public ResponseEntity<List<YoutubeVideo>> deleteVideo(@PathVariable Long videoId){
+        return new ResponseEntity<>(youtubeVideoBussiness.deleteVideo(videoId), HttpStatus.OK);
+    }
 }

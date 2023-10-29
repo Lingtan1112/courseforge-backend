@@ -46,13 +46,6 @@ public final class YoutubeResponseDTO extends GenericJson {
       return this;
    }
 
-   @Override
-public String toString() {
-    return "YoutubeResponseDTO [etag=" + etag + ", eventId=" + eventId + ", items=" + items + ", kind=" + kind
-            + ", nextPageToken=" + nextPageToken + ", prevPageToken=" + prevPageToken
-            + ", visitorId=" + visitorId + "]";
-}
-
 public List<Video> getItems() {
       return this.items;
    }

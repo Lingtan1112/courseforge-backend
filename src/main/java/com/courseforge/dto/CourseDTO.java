@@ -1,56 +1,31 @@
-package com.courseforge.model;
+package com.courseforge.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name="COURSE")
-public class Course {
+public class CourseDTO {
         
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "COURSE_ID")
     private String courseId;
 
-    @Column(name = "TITLE")
     private String courseTitle;
 
-    @Column(name = "DESCRIPTION")
     private String courseDescription;
     
-    @Column(name = "THUMBNAIL")
     private String courseImage;
     
-    @Column(name="CREATED_ON")
     private LocalDateTime createdOn;
 
-    @Column(name="UPDATED_ON")
     private LocalDateTime updatedOn;
 
-    @Column(name="STATUS")
     private String isCourseActive;
 
-    @OneToMany(mappedBy="course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<YoutubeVideo> videoList;
+    private List<YoutubeVideoDTO> videoList;
     
-    public List<YoutubeVideo> getVideoList() {
+    public List<YoutubeVideoDTO> getVideoList() {
         return videoList;
     }
 
-    public void setVideoList(List<YoutubeVideo> videoList) {
+    public void setVideoList(List<YoutubeVideoDTO> videoList) {
         this.videoList = videoList;
     }
 
@@ -107,4 +82,5 @@ public class Course {
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
     }
+
 }

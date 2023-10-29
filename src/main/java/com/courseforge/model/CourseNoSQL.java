@@ -2,55 +2,37 @@ package com.courseforge.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+@Document(collection = "Course")
+public class CourseNoSQL {
 
-@Entity
-@Table(name="COURSE")
-public class Course {
-        
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "COURSE_ID")
     private String courseId;
 
-    @Column(name = "TITLE")
+    @Field(name="courseTitle")
     private String courseTitle;
 
-    @Column(name = "DESCRIPTION")
     private String courseDescription;
     
-    @Column(name = "THUMBNAIL")
     private String courseImage;
     
-    @Column(name="CREATED_ON")
     private LocalDateTime createdOn;
 
-    @Column(name="UPDATED_ON")
     private LocalDateTime updatedOn;
 
-    @Column(name="STATUS")
     private String isCourseActive;
 
-    @OneToMany(mappedBy="course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<YoutubeVideo> videoList;
+    private List<YoutubeVideoNoSQL> videoList;
     
-    public List<YoutubeVideo> getVideoList() {
+    public List<YoutubeVideoNoSQL> getVideoList() {
         return videoList;
     }
 
-    public void setVideoList(List<YoutubeVideo> videoList) {
+    public void setVideoList(List<YoutubeVideoNoSQL> videoList) {
         this.videoList = videoList;
     }
 
@@ -107,4 +89,5 @@ public class Course {
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
     }
+    
 }

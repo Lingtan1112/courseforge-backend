@@ -24,7 +24,13 @@ public class YoutubeVideoBussiness {
         return youtubeVideoRepo.findByCourseCourseId(youtubeVideo.getCourse().getCourseId());
     }
 
-    public List<YoutubeVideo> fetchVideosByCourseId(Long courseId) {
+    public List<YoutubeVideo> fetchVideosByCourseId(String courseId) {
+        return youtubeVideoRepo.findByCourseCourseId(courseId);
+    }
+
+    public List<YoutubeVideo> deleteVideo(Long videoId) {
+        String courseId = youtubeVideoRepo.findCourseIdById(videoId);
+        youtubeVideoRepo.deleteById(videoId);
         return youtubeVideoRepo.findByCourseCourseId(courseId);
     }
 

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.courseforge.bussiness.CourseBusiness;
+import com.courseforge.dto.CourseDTO;
 import com.courseforge.model.Course;
 
 import graphql.GraphQL;
@@ -35,30 +36,14 @@ public class CourseController {
     @Autowired
     CourseBusiness courseBusiness;
 
-    @Autowired
-    private GraphQL graphQL;
-
     @PostMapping("/list")
     public ResponseEntity<Object> list(){
-        // ExecutionResult courseList = graphQL.execute("fetchCourseList");
-        List<Course> courseList = courseBusiness.fetchCourseList();
+        List<CourseDTO> courseList = courseBusiness.fetchCourseList();
         return new ResponseEntity<>(courseList, HttpStatus.OK); 
     }
 
-    // @PostMapping("/save")
-    // public ResponseEntity<Course> saveCourse(@RequestParam(name="courseImage", required=false) MultipartFile file, @RequestParam("courseJson") String courseJson){
-    //     Course savedCourse = new Course();
-    //     try{
-    //         savedCourse = courseBusiness.saveCourse(courseJson,file);
-    //     }catch(Exception e){
-    //         e.printStackTrace();
-    //         System.out.println(e.getMessage());
-    //     }
-    //     return new ResponseEntity<Course>(savedCourse, HttpStatus.OK);
-    // }
-
     @PostMapping("/save")
-    public ResponseEntity<Course> saveCourse(@RequestBody Course course){
+    public ResponseEntity<Course> saveCourse(@RequestBody CourseDTO course){
         Course savedCourse = new Course();
         try{
             savedCourse = courseBusiness.saveCourse(course);
@@ -72,7 +57,7 @@ public class CourseController {
 
 
     @GetMapping("/edit/{courseId}")
-    public ResponseEntity<Course> fetchByCourseId(@PathVariable Long courseId){
+    public ResponseEntity<Course> fetchByCourseId(@PathVariable String courseId){
         Course course = courseBusiness.fetchCourseById(courseId);
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
@@ -82,6 +67,12 @@ public class CourseController {
         byte[] imageBytes = file.getBytes();
         String data = Base64.getEncoder().encodeToString(imageBytes);
         return new ResponseEntity<>(data, HttpStatus.OK);
+    }
+
+    @GetMapping("/delete/{courseId}")
+    public ResponseEntity<List<CourseDTO>> deleteCourseById(@PathVariable String courseId){
+        List<CourseDTO> courseDTO = courseBusiness.deleteCourseById(courseId);
+        return new ResponseEntity<List<CourseDTO>>(courseDTO, HttpStatus.OK);
     }
 
 }
