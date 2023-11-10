@@ -12,7 +12,7 @@ import com.courseforge.repo.YoutubeVideoRepo;
 @Service
 public class YoutubeVideoBussiness {
 
-    @Autowired
+    @Autowired(required = false)
     YoutubeVideoRepo youtubeVideoRepo;
     
     public List<YoutubeVideo> save(YoutubeVideo youtubeVideo){

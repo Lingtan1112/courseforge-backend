@@ -49,8 +49,8 @@ public class YoutubeApiController {
     @Autowired
     private GraphQL graphql;
 
-    @Autowired
-    YoutubeRepo youtubeRepo;
+//    @Autowired
+//    YoutubeRepo youtubeRepo;
 
     // @PostMapping("/fetch")
     // public ResponseEntity<Object> fetch(@RequestParam("videoId") String videoId) throws IOException, ClassNotFoundException, GeneralSecurityException{
@@ -64,22 +64,22 @@ public class YoutubeApiController {
         return new ResponseEntity<>(data,HttpStatus.OK);
     }
 
-    @GetMapping("/fetchAll")
-    public ResponseEntity<Object> fetchAll() throws IOException, ClassNotFoundException, GeneralSecurityException{
-       
-        List<HashMap<String, Object>> data = youtubeRepo.findAll().stream().map(i -> { 
-             HashMap<String, Object> data1 = new HashMap<>();
-             data1.put("id", i.getId());
-             data1.put("request", i.getRequest());
-             data1.put("requestType", "VIDEOS");
-             try {
-                data1.put("response", new ObjectMapper().readValue(i.getRequestString(), YoutubeResponseDTO.class));
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-             return data1;
-        })
-       .collect(Collectors.toList());
+//    @GetMapping("/fetchAll")
+//    public ResponseEntity<Object> fetchAll() throws IOException, ClassNotFoundException, GeneralSecurityException{
+//       
+//        List<HashMap<String, Object>> data = youtubeRepo.findAll().stream().map(i -> { 
+//             HashMap<String, Object> data1 = new HashMap<>();
+//             data1.put("id", i.getId());
+//             data1.put("request", i.getRequest());
+//             data1.put("requestType", "VIDEOS");
+//             try {
+//                data1.put("response", new ObjectMapper().readValue(i.getRequestString(), YoutubeResponseDTO.class));
+//            } catch (JsonProcessingException e) {
+//                e.printStackTrace();
+//            }
+//             return data1;
+//        })
+//       .collect(Collectors.toList());
 
 
     //    List<YoutubeResponseDTO> youtubeResponseDTO = demo.stream().map(i-> {
@@ -93,20 +93,20 @@ public class YoutubeApiController {
     //     return null;
     // }).collect(Collectors.toList());
 
-       return new ResponseEntity<>(data,HttpStatus.OK);
-    }
+//       return new ResponseEntity<>(data,HttpStatus.OK);
+//    }
 
-    private YoutubeCache convertByteToString(YoutubeCache youtubeCache){
-        String tempJsonObjectStr;
-        try {
-            tempJsonObjectStr = new Gson().toJson(CommonUtils.convertByteArrayToObject(youtubeCache.getResponse()));
-            youtubeCache.setRequestString(tempJsonObjectStr); 
-        } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-        }
-        
-        return youtubeCache;
-    }
+//    private YoutubeCache convertByteToString(YoutubeCache youtubeCache){
+//        String tempJsonObjectStr;
+//        try {
+//            tempJsonObjectStr = new Gson().toJson(CommonUtils.convertByteArrayToObject(youtubeCache.getResponse()));
+//            youtubeCache.setRequestString(tempJsonObjectStr); 
+//        } catch (ClassNotFoundException | IOException e) {
+//            e.printStackTrace();
+//        }
+//        
+//        return youtubeCache;
+//    }
 
    
     

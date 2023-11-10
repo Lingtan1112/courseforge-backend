@@ -17,7 +17,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 @Component
 public class CourseImpl implements CourseInterface {
 
-    @Autowired
+    @Autowired(required=false)
     CourseRepo courseRepo;
 
     @Override

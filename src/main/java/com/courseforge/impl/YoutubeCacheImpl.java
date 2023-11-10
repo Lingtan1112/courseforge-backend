@@ -25,7 +25,7 @@ public class YoutubeCacheImpl implements YoutubeCacheInterface{
     @Autowired
     YoutubeFeignInterface youtubeFeignInterface;
 
-    @Autowired
+    @Autowired(required=false)
     YoutubeRepo youtubeRepo;
 
     @Value("${youtube.api-part}")
