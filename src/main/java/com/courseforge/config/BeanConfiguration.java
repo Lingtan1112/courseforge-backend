@@ -35,8 +35,8 @@ import jakarta.annotation.PostConstruct;
 @Configuration
 public class BeanConfiguration {
 
-    @Value("classpath:graphql/course.graphqls")
-    private Resource resource;
+    // @Value("classpath:graphql/course.graphqls")
+    // private Resource resource;
 
     @Autowired
     YoutubeApiBussiness youtubeApiBussiness;
@@ -47,7 +47,8 @@ public class BeanConfiguration {
     @Bean
     public GraphQL getGraphQL() throws IOException{
         SchemaParser schemaParser = new SchemaParser(); 
-        File file = resource.getFile();
+         File file = new ClassPathResource("graphql/course.graphqls").getFile();
+        // File file = resource.getFile();
         TypeDefinitionRegistry registry = schemaParser.parse(file);
         RuntimeWiring wiring = getRuntimeWiring();
         GraphQLSchema schema = new SchemaGenerator().makeExecutableSchema(registry, wiring);
