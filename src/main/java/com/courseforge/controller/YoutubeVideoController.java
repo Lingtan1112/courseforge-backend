@@ -18,7 +18,7 @@ import com.courseforge.model.YoutubeVideo;
 
 @RestController
 @RequestMapping("/ytvideo")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://subtle-ganache-18e965.netlify.app"})
 public class YoutubeVideoController {
 
     @Autowired

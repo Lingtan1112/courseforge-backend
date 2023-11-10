@@ -30,7 +30,7 @@ import graphql.GraphQL;
 
 @RestController
 @RequestMapping("/course")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://subtle-ganache-18e965.netlify.app"})
 public class CourseController {
 
     @Autowired
