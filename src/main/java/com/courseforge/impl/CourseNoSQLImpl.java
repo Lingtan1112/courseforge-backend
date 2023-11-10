@@ -16,7 +16,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Component
 @Primary
-public class CourseNoSQLImpl implements CourseInterface{
+public class CourseNoSQLImpl implements CourseInterface {
 
     @Autowired
     CourseNoSQLRepo courseNoSQLRepo;
@@ -33,7 +33,7 @@ public class CourseNoSQLImpl implements CourseInterface{
     @Override
     public Course saveCourse(CourseDTO couseDto) {
         CourseNoSQL courseNoSQL = customObjectMapper.convertValue(couseDto, CourseNoSQL.class);
-        CourseNoSQL courseNoSQLResponse = courseNoSQLRepo.insert(courseNoSQL);
+        CourseNoSQL courseNoSQLResponse = courseNoSQLRepo.save(courseNoSQL);
         return customObjectMapper.convertValue(courseNoSQLResponse, Course.class);
     }
 

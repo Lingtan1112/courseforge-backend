@@ -1,6 +1,9 @@
 package com.courseforge.model;
 
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -18,9 +21,10 @@ import jakarta.persistence.Table;
 public class YoutubeVideo {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name="YOUTUBE_VIDEO_ID")
-    private Long id;
+    private String id;
 
     @Column(name="TITLE")
     private String title;
@@ -52,10 +56,10 @@ public class YoutubeVideo {
     private Course course;
     
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
     public String getTitle() {

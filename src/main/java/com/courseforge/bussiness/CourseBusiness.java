@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.courseforge.dto.CourseDTO;
-import com.courseforge.impl.CourseImpl;
 import com.courseforge.interfaces.CourseInterface;
 import com.courseforge.model.Course;
 

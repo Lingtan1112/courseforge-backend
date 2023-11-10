@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.courseforge.model.YoutubeCache;
 
 @Repository
-public interface YoutubeRepo  extends JpaRepository<YoutubeCache, Long>{
+public interface YoutubeRepo  extends JpaRepository<YoutubeCache, String>{
     
     public List<YoutubeCache> findByRequest(String videoId);
 

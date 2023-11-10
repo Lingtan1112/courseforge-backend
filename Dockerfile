@@ -1,15 +1,14 @@
-#
-# Build stage
-#
-FROM maven:3.9.5-jdk-11 AS build
-COPY . .
-RUN mvn clean package -DskipTests
+FROM maven:3.6.3-openjdk-17-slim as BUILDER
+ARG VERSION=0.0.1-SNAPSHOT
+WORKDIR /build/
+COPY pom.xml /build/
+COPY src /build/src/
 
-#
-# Package stage
-#
-FROM openjdk:11-jdk-slim
-COPY --from=build /target/demo-0.0.1-SNAPSHOT.jar demo.jar
-# ENV PORT=8080
-EXPOSE 8080
-ENTRYPOINT ["java","-jar","demo.jar"]
+RUN mvn clean package
+COPY target/courseforge-${VERSION}.jar target/application.jar
+
+FROM openjdk:11.0.11-jre-slim
+WORKDIR /app/
+
+COPY --from=BUILDER /build/target/application.jar /app/
+CMD java -jar /app/application.jar
