@@ -1,13 +1,16 @@
 package com.courseforge.config;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -35,8 +38,8 @@ import jakarta.annotation.PostConstruct;
 @Configuration
 public class BeanConfiguration {
 
-    @Value("classpath:graphql/course.graphqls")
-    private Resource resource;
+//    @Value("classpath:graphql/course.graphqls")
+//    private Resource resource;
 
     @Autowired
     YoutubeApiBussiness youtubeApiBussiness;
@@ -47,8 +50,10 @@ public class BeanConfiguration {
     @Bean
     public GraphQL getGraphQL() throws IOException{
         SchemaParser schemaParser = new SchemaParser(); 
-        File file = resource.getFile();
-        TypeDefinitionRegistry registry = schemaParser.parse(file);
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("graphql/course.graphqls");
+//        File file = new ClassPathResource("graphql/course.graphqls").getFile();
+//        File file = resource.getFile();
+        TypeDefinitionRegistry registry = schemaParser.parse(inputStream);
         RuntimeWiring wiring = getRuntimeWiring();
         GraphQLSchema schema = new SchemaGenerator().makeExecutableSchema(registry, wiring);
         GraphQL graphQL = GraphQL.newGraphQL(schema).build();

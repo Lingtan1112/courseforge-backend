@@ -15,31 +15,31 @@ import jakarta.annotation.PostConstruct;
 public class GraphqlUtil {
     
 
-    public File file;
-    
-    @PostConstruct
-    public void loadGraphQlFile() throws IOException{
-        String filePath = "graphql/course.graphqls";
-
-        try {
-            ClassLoader classLoader = getClass().getClassLoader();
-
-            URI resourceUri = classLoader.getResource(filePath).toURI();
-
-            this.file = new File(resourceUri);
-
-            if (file.exists()) {
-                System.out.println("File exists: " + file.getAbsolutePath());
-            } else {
-                System.err.println("File not found: " + filePath);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public File getGraphQlFile(){
-        return this.file;
-    }
+//    public File file;
+//    
+//    @PostConstruct
+//    public void loadGraphQlFile() throws IOException{
+//        String filePath = "graphql/course.graphqls";
+//
+//        try {
+//            ClassLoader classLoader = getClass().getClassLoader();
+//
+//            URI resourceUri = classLoader.getResource(filePath).toURI();
+//
+//            this.file = new File(resourceUri);
+//
+//            if (file.exists()) {
+//                System.out.println("File exists: " + file.getAbsolutePath());
+//            } else {
+//                System.err.println("File not found: " + filePath);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public File getGraphQlFile(){
+//        return this.file;
+//    }
 
 }
